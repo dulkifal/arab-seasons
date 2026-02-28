@@ -1,16 +1,21 @@
-# Print Overlay Editor
+# Arab Season Print Order Form
 
-Lightweight HTML+JS tool to place editable text on top of a background image or PDF page, preview, and print.
+A dynamic and printable HTML form for Arab Season job orders. 
 
-Usage
+You do not need an internet connection or any complex PDF editing software to use it. It is entirely self-contained.
 
-- Open `index.html` in a browser (double-click or serve with a static server).
-- Click the file picker and choose a JPG/PNG or a PDF (first page is used).
-- Click `Add Text` to place editable text boxes. Drag to position, double-click to edit.
-- Use the small toolbar on each overlay to change color, increase/decrease size, or delete.
-- Click `Print / Save as PDF` to open a print preview (use system print to save as PDF).
+## How to use
 
-Notes
+1. Double-click the `print-order.html` file to open it in your web browser (Chrome, Safari, Edge, etc.).
+2. The **Date** will automatically fill in with today's date, but you can click on it to change it.
+3. Click on the fields (Name, Sl.no, Description, Remark) to directly type into them.
+4. **Images**: You can add images into the Description column. Just drag any image file from your computer and drop it directly onto the Description box.
+5. You can resize images by holding and dragging the green handle in their bottom-right corner.
 
-- For PDFs, the first page is rendered using pdf.js from CDN.
-- The app is intentionally minimal and runs fully in the browser.
+## How to Print or Save
+
+Once the form is completely filled out:
+1. Press `Ctrl + P` (or `Cmd + P` on Mac) to open the print menu.
+2. In the Print Dialog settings, **ensure "Background Graphics" is turned on** so that the geometric green corners print correctly.
+3. The interface elements like dotted lines and image resize handles will magically disappear on the printed page.
+4. From here you can either send it to your physical printer or select **"Save as PDF"**.
