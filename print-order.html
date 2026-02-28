@@ -31,7 +31,7 @@
       top: 0; right: 0;
       width: 600px; height: 360px;
       /* Using a polygon cut to mirror the jagged shape shown in the reference image */
-      background: #5bbfaa;
+      background: #20a7ac;
       clip-path: polygon(51% 0%, 100% 0%, 100% 13%, 62% 13%);
       z-index: 0;
     }
@@ -131,7 +131,7 @@
       position: absolute;
       bottom: 0; left: 0;
       width: 600px; height: 360px;
-      background: #5bbfaa;
+      background: #20a7ac;
       clip-path: polygon(0% 86%, 0% 100%, 57% 100%, 41% 87%);
       z-index: 0;
     }
@@ -214,9 +214,36 @@
       border-radius: 50%;
       cursor: nwse-resize;
     }
+    .print-btn {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: #1a8a7a;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(26, 138, 122, 0.3);
+      transition: background 0.2s, transform 0.2s;
+      z-index: 1000;
+    }
+    .print-btn:hover {
+      background: #156d60;
+      transform: translateY(-2px);
+    }
+    @media print {
+      .print-btn {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+  <button class="print-btn" onclick="window.print()">Save as PDF / Print</button>
   <div class="page">
     
     <div class="corner-accent"></div>
