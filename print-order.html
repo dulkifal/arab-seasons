@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Order - Arab Season</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      padding: 30px 0;
+    }
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: #fff;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+    .top-bar {
+      height: 12px;
+      background: #1a8a7a;
+      width: 100%;
+    }
+    .corner-accent {
+      position: absolute;
+      top: 0; right: 0;
+      width: 600px; height: 360px;
+      /* Using a polygon cut to mirror the jagged shape shown in the reference image */
+      background: #5bbfaa;
+      clip-path: polygon(51% 0%, 100% 0%, 100% 13%, 62% 13%);
+      z-index: 0;
+    }
+   
+    .header {
+      padding: 30px 48px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+    .logo-text {
+      padding-top: 8px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 28px;
+      color: #1a8a7a;
+      line-height: 1;
+    }
+    .title-area {
+      flex: 1;
+ 
+      padding-top: 16px;
+    }
+    .title-area h2 {
+      font-size: 20px;
+      font-weight: 400;
+      color: #222;
+      /* text-transform: uppercase; */
+      text-align: center;
+    }
+    .title-area img {
+      max-height: 50px;
+      width: auto;
+      margin-bottom: 5px;
+    }
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 5px;
+    }
+    .brand-area img {
+      max-height: 80px;
+      width: auto;
+    }
+    .title-area img {
+      max-height: 60px;
+      width: auto;
+    }
+    .fields {
+      padding: 24px 48px 0;
+      font-size: 16px;
+    }
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .field-row label {
+      font-weight: 600;
+      width: 70px;
+    }
+    .field-row input {
+      flex: 1;
+      border: none;
+      border-bottom: 1.5px solid #ccc;
+      outline: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      padding: 4px 8px;
+      background: transparent;
+    }
+    .table-wrap {
+      padding: 16px 48px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1.5px solid #333;
+    }
+    th, td {
+      border: 1.5px solid #333;
+      padding: 8px 12px;
+      font-size: 15px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { font-weight: 600; }
+    th:nth-child(1) { width: 60px; }
+    th:nth-child(2) { text-align: center; }
+    th:nth-child(3) { width: 140px; text-align: center; }
+    td.body-cell { height: 580px; }
+    
+    .corner-bottom-accent {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 600px; height: 360px;
+      background: #5bbfaa;
+      clip-path: polygon(0% 86%, 0% 100%, 57% 100%, 41% 87%);
+      z-index: 0;
+    }
+   
+    .signatures {
+      background: transparent;
+      color: #333;
+      display: flex;
+      justify-content: space-around;
+      padding: 24px 0 40px;
+      font-size: 16px;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+    }
+   
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body { background: #fff; padding: 0; }
+      .page { box-shadow: none; }
+      .field-row input { border-bottom: none; background: transparent; }
+      .resize-handle { display: none !important; }
+      .image-caption { border: none !important; }
+      .image-caption:empty { display: none; }
+    }
+    
+    td.body-cell.desc-cell {
+      position: relative;
+    }
+    .draggable-img-container {
+      position: relative;
+      margin: 15px 0;
+      display: block;
+      min-width: 50px;
+      page-break-inside: avoid;
+    }
+    .img-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .img-wrapper img {
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+      display: block;
+    }
+    .image-caption {
+      width: 100%;
+      margin-top: 5px;
+      min-height: 20px;
+      padding: 4px;
+      border: 1px dashed transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+    .image-caption:focus, .image-caption:hover {
+      border: 1px dashed #ccc;
+    }
+    .image-caption:empty::before {
+      content: "Type image description...";
+      color: #999;
+      pointer-events: none;
+    }
+    @media print {
+      .image-caption { border: none !important; }
+      .image-caption:empty { display: none; }
+    }
+    .resize-handle {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      width: 12px;
+      height: 12px;
+      background: #1a8a7a;
+      border-radius: 50%;
+      cursor: nwse-resize;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    
+    <div class="corner-accent"></div>
+   
+
+    <div class="header">
+      <div class="brand-area">
+        <img src="arabseason-logo.png" alt="Arab Season Logo">
+      </div>
+      
+      <div class="title-area">
+        <img src="arabseason-title.png" alt="Arab Season Title">
+        <h2 style="text-align: center;">Job Order</h2>
+      </div>
+    </div>
+
+    <div class="fields">
+      <div class="field-row">
+        <label>Date</label><span>:</span>
+        <input type="text" id="date-field" />
+      </div>
+      <div class="field-row">
+        <label>Sl.no</label><span>:</span>
+        <input type="text" id="slno-field" />
+      </div>
+      <div class="field-row">
+        <label>Name</label><span>:</span>
+        <input type="text" id="name-field" />
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>NO</th>
+            <th>Description</th>
+            <th>Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="body-cell" contenteditable="true" style="outline: none;">1</td>
+            <td class="body-cell desc-cell" id="desc-cell" contenteditable="true" style="outline: none;" placeholder="Type description or drag an image here..."></td>
+            <td class="body-cell" contenteditable="true" style="outline: none;" placeholder="Type remarks here..."></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="signatures">
+        <span>Manager Signature</span>
+        <span>Supervisor Signature</span>
+      </div>
+     
+    </div>
+    <div class="corner-bottom-accent"></div>
+    <div class="corner-bottom-dark"></div>
+  </div>
+
+  <script>
+    // Auto-fill today's date into the input value
+    const today = new Date();
+    const formatted = today.toLocaleDateString('en-GB');
+    document.getElementById('date-field').value = formatted;
+
+    // Drag and drop image to Description cell
+    const descCell = document.getElementById('desc-cell');
+
+    descCell.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      descCell.style.background = '#eef';
+    });
+    
+    descCell.addEventListener('dragleave', () => {
+      descCell.style.background = 'transparent';
+    });
+    
+    descCell.addEventListener('drop', (e) => {
+      e.preventDefault();
+      descCell.style.background = 'transparent';
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          createDraggableImage(event.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function createDraggableImage(src) {
+      const container = document.createElement('div');
+      container.className = 'draggable-img-container';
+      container.style.width = '250px';
+      container.contentEditable = 'false'; // protect the block structure
+
+      const imgWrapper = document.createElement('div');
+      imgWrapper.className = 'img-wrapper';
+
+      const img = document.createElement('img');
+      img.src = src;
+
+      const handle = document.createElement('div');
+      handle.className = 'resize-handle';
+      handle.contentEditable = 'false';
+
+      imgWrapper.appendChild(img);
+      imgWrapper.appendChild(handle);
+
+      const caption = document.createElement('div');
+      caption.className = 'image-caption';
+      caption.contentEditable = 'true'; // allow editing description
+
+      container.appendChild(imgWrapper);
+      container.appendChild(caption);
+      
+      descCell.appendChild(container);
+      
+      // Add a line break after so the user can easily type or add more images below
+      const br = document.createElement('br');
+      descCell.appendChild(br);
+
+      makeResizable(container, handle);
+    }
+
+    function makeResizable(container, handle) {
+      let isResizing = false, startX, startWidth;
+
+      handle.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        startX = e.clientX;
+        startWidth = container.offsetWidth;
+        e.preventDefault();
+        e.stopPropagation(); // don't trigger drag
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const dx = e.clientX - startX;
+        const newWidth = Math.max(50, startWidth + dx); // min width 50px
+        container.style.width = newWidth + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        isResizing = false;
+      });
+    }
+  </script>
+</body>
+</html>
